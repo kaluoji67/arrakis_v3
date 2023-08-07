@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { TradeDetail } from './TradeDetail'
 import Table from 'react-bootstrap/Table';
-import { getAllTrades } from '../../services/trade-service';
+import { getAllTrades, getTradesBySecurityId } from '../../services/trade-service';
 
 const dummy = [
     {
@@ -21,13 +21,13 @@ const dummy = [
     }
 ]
 
-const Trades = () => {
+const Trades = ( props ) => {
     const [trades, setTrades] = useState([]);
     const [error, setError] = useState('');
     const [loaded, setLoaded] = useState(false);
 
     const getAllTradesFromAPI = () => {
-        getAllTrades([1, 2])
+        getAllTrades([props.id])
             .then(res => {
                 setLoaded(true);
                 setTrades(res.data);
@@ -40,15 +40,16 @@ const Trades = () => {
                 setLoaded(false);
             })
 
-
     }
+
+
 
     useEffect(() => {
         getAllTradesFromAPI();
     },
         []
     );
-    
+
 
     if (error && !loaded) {
         return (

@@ -1,8 +1,16 @@
 import React from 'react'
+import showTrades from './AllSecurities'
+
 
 const SecurityDetails = (props) => {
+
+
+  const showTrades = ( props) =>{
+      setCurrentState(currentState )
+  } 
+
   return (
-    <tr>
+    <tr onClick={showTrades(security.id)}>
       <td>{props.info.isin}</td>
       <td>{props.info.cusip} </td>
       <td>{props.info.issuer_name}</td>

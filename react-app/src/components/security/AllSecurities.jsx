@@ -28,7 +28,6 @@ const AllSecurities = (props) => {
     const [user,setUser] = useState(null);
     
 
-
     const getAllSecuritiesFromAPI = () => {
         console.log(user)
         const userId = user.id;
@@ -103,7 +102,6 @@ const AllSecurities = (props) => {
                             <th>Currency</th>
                             <th>Status</th>
                         </tr>
-
                     </thead>
                     <tbody>
                         {
