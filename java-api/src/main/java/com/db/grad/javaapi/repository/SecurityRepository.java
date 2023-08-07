@@ -58,8 +58,7 @@ public interface SecurityRepository extends JpaRepository<Security,Long> {
             "        )")
     List<String> findDistinctSecurityTypesByUserId(long userId);
 
-<<<<<<< HEAD
-=======
+
     @Query(nativeQuery = true, value = "select distinct(issuer_name) from security where id in" +
             "        (select distinct(security_id) from trades\n" +
             "        where book_id in\n" +
@@ -87,7 +86,7 @@ public interface SecurityRepository extends JpaRepository<Security,Long> {
             "        book on book.id = book_users.book_id)\n" +
             "        ) and issuer_name = :issuerName and type = :type")
     List<Security> findSecurityByDateTypeAndIssuer(long userId, Date startDate, Date endDate, String issuerName, String type);
->>>>>>> d342c69656e549dd8f7e0e0a13f0e4b78951013b
+
 }
 
 /* select * from security where id in
