@@ -102,7 +102,6 @@ public class SecurityController {
         catch(Exception e){
             return ResponseEntity.badRequest().body(e.getMessage()+" Invalid Date Range, User, Type , or Issuer Name!");
         }
-
     }
 
     @PutMapping("/security/updateStatus/{id}")

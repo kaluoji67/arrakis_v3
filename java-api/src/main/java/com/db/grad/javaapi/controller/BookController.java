@@ -67,7 +67,6 @@ public class BookController {
             response.put("deleted", Boolean.TRUE);
         else
             response.put("deleted", Boolean.FALSE);
-
         return response;
     }
 }
