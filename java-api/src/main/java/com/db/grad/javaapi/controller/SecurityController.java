@@ -2,6 +2,7 @@ package com.db.grad.javaapi.controller;
 
 import com.db.grad.javaapi.Service.SecurityHandler;
 import com.db.grad.javaapi.exception.ResourceNotFoundException;
+import com.db.grad.javaapi.model.FilterParams;
 import com.db.grad.javaapi.model.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -87,14 +88,16 @@ public class SecurityController {
     }
 
 
-    @GetMapping("/security/date_range/issuer_name/type")
-    public ResponseEntity < ? > getSecuritiesByDateIssuerNameAndType(@RequestParam long user,
-                                                                     @RequestParam String startDate,
-                                                                     @RequestParam String endDate,
-                                                                     @RequestParam List<String> issuerName,
-                                                                     @RequestParam List<String> type)
+    @PostMapping("/security/date_range/issuer_name/type")
+    public ResponseEntity < ? > getSecuritiesByDateIssuerNameAndType(@RequestBody FilterParams filterParams)
             throws ResourceNotFoundException {
         try{
+            long user = filterParams.getUser();
+            String startDate = filterParams.getDateRange().getStartDateString();
+            String endDate = filterParams.getDateRange().getEndDateString();
+            List<String> issuerName = filterParams.getIssuerName();
+            List<String> type = filterParams.getType();
+
             List<Security> securityList = securityHandler.getSecuritiesByDateIssuerAndType(user,startDate,endDate, issuerName, type);
             return ResponseEntity.ok().body(securityList);
         }
@@ -103,10 +106,12 @@ public class SecurityController {
         }
     }
 
-    @GetMapping("/security/issuer_name")
-    public ResponseEntity < ? > getSecuritiesByIssuerName(@RequestParam long user, @RequestParam List<String> issuerName)
+    @PostMapping("/security/issuer_name")
+    public ResponseEntity < ? > getSecuritiesByIssuerName(@RequestBody FilterParams filterParams)
             throws ResourceNotFoundException {
         try{
+            long user = filterParams.getUser();
+            List<String> issuerName = filterParams.getIssuerName();
             List<Security> securityList = securityHandler.getSecuritiesByIssuerName(user,issuerName);
             return ResponseEntity.ok().body(securityList);
         }

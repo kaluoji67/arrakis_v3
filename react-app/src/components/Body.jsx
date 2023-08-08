@@ -4,12 +4,13 @@ import DashBoard from './DashBoard'
 import { useEffect } from 'react'
 import { auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
+import Spinner from 'react-bootstrap/Spinner';
 
 
 
 const Body = (props) => {
-    const [currentUser, setCurrentUser] = useState(null)
-
+    const [currentUser, setCurrentUser] = useState(undefined)
+    const [showLoading, setShowLoading] = useState(true)
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -29,12 +30,25 @@ const Body = (props) => {
         props.setUser();
     }
 
+    useEffect(() => {
+        if(currentUser===undefined){
+            setShowLoading(true)
+        }else{
+            setShowLoading(false)
+        }
+    }, [currentUser]);
+
     const user = props.info;
     console.log(user);
     return (
         <>
+            <div className='loading-page' style={showLoading ? { display: "flex" } : { display: "none" }}>
+                <div className='spinner-container'>
+                    <Spinner animation="border" id="spinner" />;
+                </div>
+            </div>
             <div className='dashboard-container'>
-                {currentUser ? <DashBoard info={props.info}/> : <LoginForm info={setUser} />}
+                {currentUser ? <DashBoard info={props.info} /> : <LoginForm info={setUser} />}
             </div>
         </>
     )

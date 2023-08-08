@@ -12,6 +12,8 @@ const App = () => {
   const setUser = ( loggedInUser ) => {
     setCurrentUser (loggedInUser);
   }
+
+  
   return (
     <>
       <div className="page-container">

@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useEffect, useRef } from "react";
+import { ReactDOM } from "react";
 import { DateRange } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main css file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { Button, Container, Form } from "react-bootstrap";
 
-const DateRangePickerOverlay = () => {
+const DateRangePickerOverlay = (props) => {
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -23,36 +25,45 @@ const DateRangePickerOverlay = () => {
     setShow(false);
   };
 
-  const handleRangeChange = (item) => {
-    setState([item.selection]);
-    handleSelect();
-  };
   const close = () => {
     setShow(false);
   };
+
+  const handleRangeChange = (item) => {
+    setState([item.selection]);
+    props.method(item.selection)
+    let dateString = " - ";
+    if (item.selection.startDate) {
+      dateString = item.selection.startDate.toLocaleDateString() + dateString
+    }
+    if (item.selection.endDate) {
+      dateString = dateString + item.selection.endDate.toLocaleDateString()
+    }
+    setDateRangeString(dateString)
+
+    handleSelect();
+  };
+  const inputHandler = event => {
+    event.target.value = dateRangeString;
+    // remove function call from here
+  };
+
+  const [dateRangeString, setDateRangeString] = useState("-");
+  const myField = useRef(null);
+
+  useEffect(() => {
+    myField.current.value = dateRangeString;
+  }, [dateRangeString])
 
   return (
     <Container className="date-form-picker-container">
       <Form className="date-range-form">
         <Form.Group className="date-range-form-group">
-          <span className="filter-label">Start Date</span>
-          <Form.Control id="date-range-text-box"
+        <span className="filter-label">Select Date</span>
+          <Form.Control
+            ref={myField}
             type="text"
             onFocus={handleFocus}
-            value={
-              state[0].startDate ? state[0].startDate.toLocaleDateString() : ""
-            }
-            readOnly
-          />
-        </Form.Group>
-        <Form.Group>
-          <span className="filter-label">End Date</span>
-          <Form.Control id="date-range-text-box"
-            type="text"
-            onFocus={handleFocus}
-            value={
-              state[0].endDate ? state[0].endDate.toLocaleDateString() : ""
-            }
             readOnly
           />
         </Form.Group>
@@ -75,7 +86,6 @@ const DateRangePickerOverlay = () => {
           {state[0].endDate.toLocaleDateString()}
         </p>
       )} */}
-      
     </Container>
   );
 };

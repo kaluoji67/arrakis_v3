@@ -34,7 +34,8 @@ values
     ('USU02320AG12' , 'AMZN 3.15 08/22/27 REGS' , 'Amazon' , '2021-08-03' , 3.15 , 'CORP' , 900 , 'USD' , 'active'),
     ('GB00B6460505' , 'BDCHBW8' , 'HM Treasury United Kingdon' , '2021-08-09' , 0.75, 'GOVN' , 900 ,'GBP', 'active'),
     ('US87973RAA86' , '87973RAA8' , 'TEMASEK FINL I LTD GLOBAL MEDIUM TERM NTS BOOK ENTRY REG S' , '2021-08-06' , 2.02 , 'SOVN' , 690 ,'USD', 'active'),
-    ('IE00B29LNP31', '87973RAA8' , 'First Norway Alpha Kl.IV' , '2030-12-22' , 1.123 , 'SOVN' , 340, 'USD', 'active')
+    ('IE00B29LNP31', '87973RAA8' , 'First Norway Alpha Kl.IV' , '2030-12-22' , 1.123 , 'SOVN' , 340, 'USD', 'active'),
+    ('P31TYGH67', '9ojjuj' , 'First Norway Alpha Kl.IV' , '2023-08-05' , 1.103 , 'OPBN' , 340, 'USD', 'active')
 ;
 
 INSERT into users
@@ -52,6 +53,11 @@ INSERT into book_users
    (1, 1),
    (1, 2),
    (1, 3),
+   (2, 3),
+   (3, 3),
+   (4, 3),
+   (5, 3),
+   (6, 3),
    (2, 2),
    (3, 1),
    (2, 4),
@@ -88,6 +94,7 @@ values
     (4,7,11,'USD','open',300, 98.76,'buy','2016-02-04','2021-09-27'),
     (4,7,11,'USD','open',300, 98.76,'buy','2012-08-23','2021-08-23'),
     (4,7,11,'USD','open',300, 98.76,'buy','2013-02-04','2021-09-27'),
-    (4,7,11,'USD','open',300, 98.76,'sell','2015-08-23','2021-08-23')
+    (4,7,11,'USD','open',300, 98.76,'sell','2015-08-23','2021-08-23'),
+    (4,8,11,'USD','open',900, 98.76,'buy','2023-08-07','2023-08-23')
 
 ;

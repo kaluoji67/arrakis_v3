@@ -1,8 +1,14 @@
 import React from 'react'
 
 const SecurityDetails = (props) => {
+
+  const handleClick = (e) => {
+    props.update(props.id)
+  }
+
   return (
-    <tr>
+    <tr onClick={handleClick}>
+      <td>{props.index +1}</td>
       <td>{props.info.isin}</td>
       <td>{props.info.cusip} </td>
       <td>{props.info.issuer_name}</td>

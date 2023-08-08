@@ -82,7 +82,7 @@ public interface SecurityRepository extends JpaRepository<Security,Long> {
             "        and users.id = :userId\n" +
             "        join\n" +
             "        book on book.id = book_users.book_id)\n" +
-            "        ) or issuer_name in :issuerName or type in :type")
+            "        ) and issuer_name in :issuerName or type in :type")
     List<Security> findSecurityByDateTypeAndIssuer(long userId, Date startDate, Date endDate, List<String> issuerName, List<String> type);
 
 

@@ -23,7 +23,7 @@ const MyDateRangePicker = ({onSelect}) => {
         <Container>
           <DateRangePicker
             onChange={(item) => setState([item.selection])}
-            showSelectionPreview={true}
+            showSelectionPreview={false}
             moveRangeOnFirstSelection={false}
             months={2}
             ranges={state}

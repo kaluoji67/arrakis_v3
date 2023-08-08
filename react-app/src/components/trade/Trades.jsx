@@ -2,32 +2,31 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { TradeDetail } from './TradeDetail'
 import Table from 'react-bootstrap/Table';
-import { getAllTrades } from '../../services/trade-service';
+import { getAllTrades, getAllTradesBySecurityId } from '../../services/trade-service';
 
-const dummy = [
-    {
-        id: 'id',
-        isin: 111,
-        bookId: 'book 22',
-        counterParty: 'shell',
-        status: 'open',
-        quantity: 3,
-        unitPrice: 10,
-        currency: 'USD',
-        buySell: 'sell',
-        tradeDate: '03.04.2023',
-        settlementDate: '03.06.2024'
 
-    }
-]
-
-const Trades = () => {
+const Trades = (props) => {
     const [trades, setTrades] = useState([]);
     const [error, setError] = useState('');
     const [loaded, setLoaded] = useState(false);
 
     const getAllTradesFromAPI = () => {
-        getAllTrades([1, 2])
+        if(!props.allTrades && props.currentSecurity>-1 ){
+            getAllTradesBySecurityId([props.currentSecurity])
+            .then(res => {
+                setLoaded(true);
+                setTrades(res.data);
+                setError('');
+            })
+            .catch(err => {
+                setTrades([]);
+                setError(err);
+                console.log(err);
+                setLoaded(false);
+            })
+            return;
+        }
+        getAllTrades()
             .then(res => {
                 setLoaded(true);
                 setTrades(res.data);
@@ -47,6 +46,16 @@ const Trades = () => {
         getAllTradesFromAPI();
     },
         []
+    );
+
+    useEffect(() => {
+        if(props.allTrades){
+            return;
+        }
+
+        getAllTradesFromAPI();
+    },
+        [props.currentSecurity]
     );
     
 

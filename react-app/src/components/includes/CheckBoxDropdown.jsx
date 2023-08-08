@@ -1,6 +1,7 @@
 import { observer } from "mobx-react-lite";
 import React from "react";
 import { Button, ButtonGroup, Dropdown, Form } from "react-bootstrap";
+import { runInAction, action } from "mobx"
 
 const CheckboxMenu = React.forwardRef(
     (
@@ -68,19 +69,28 @@ export const CheckboxDropdown = observer(({ info }) => {
         // items.find(i => i.id === key).checked = event.target.checked;
         for (const item in items) {
             if (items[item].id == key) {
-                items[item].checked = event.target.checked;
-                info.method();
+                runInAction(() => {
+                    console.log(items[item].label)
+                    info.method(items[item].label);
+                    items[item].checked = event.target.checked;
+                })
                 break;
             }
         }
     };
 
     const handleSelectAll = () => {
-        items.forEach(i => (i.checked = true));
+        items.forEach(i => {
+            i.checked = true;
+            info.method(i.label);
+        });
     };
 
     const handleSelectNone = () => {
-        items.forEach(i => (i.checked = false));
+        items.forEach(i => {
+            i.checked = false;
+            info.method(i.label);
+        })
     };
 
     return (
@@ -94,7 +104,7 @@ export const CheckboxDropdown = observer(({ info }) => {
                 onSelectAll={handleSelectAll}
                 onSelectNone={handleSelectNone}
             >
-                {items.map(i => (
+                {items.filter(i => i.label != "x0x0").map(i =>  (
                     <Dropdown.Item
                         key={i.id}
                         as={CheckDropdownItem}

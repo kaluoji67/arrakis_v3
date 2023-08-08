@@ -24,7 +24,7 @@ const DashBoard = (props) => {
         </div>
         <div className="tabs-content-container">
           {active === "Bonds" && <div className="tab-1 tabs-content"> <Securities info={props.info} /> </div>}
-          {active === "Trades" && <div className="tab-2 tabs-content"> <Trades/> </div>}
+          {active === "Trades" && <div className="tab-2 tabs-content"> <Trades alltrades={true} currentSecurity={-1}/> </div>}
           {active === "User Management" && <div className="tab-3 tabs-content"> User Management </div>}
           {active === "Settings" && <div className="tab-4 tabs-content"> Settings </div>}
         </div>
