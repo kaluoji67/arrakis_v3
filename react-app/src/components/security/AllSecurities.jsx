@@ -331,14 +331,24 @@ const AllSecurities = (props) => {
                                 <th>Face Value</th>
                                 <th>Currency</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
 
                         </thead>
                         <tbody>
                             {
+                                props.allFilters ?
+                                
                                 search(securities).map((security, index) => (
                                     < SecurityDetails info={security} key={security.id} id={security.id} index={index} update={updateCurrentSecurity} />
                                 ))
+
+                                :
+                                
+                                search(securities).filter(sec => sec.status === "active" ).map((security, index) => (
+                                    < SecurityDetails info={security} key={security.id} id={security.id} index={index} update={updateCurrentSecurity} />
+                                ))
+
                             }
                         </tbody>
                     </Table>

@@ -439,3 +439,7 @@
   flex-direction: column;
   justify-content: baseline;
 }
+
+.disable-button {
+  color: #666;
+}
